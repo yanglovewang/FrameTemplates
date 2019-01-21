@@ -6,8 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.util.StringUtils;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -21,6 +22,7 @@ public class SheetController {
     private Logger logger = LoggerFactory.getLogger(SheetConditionalFormatting.class);
 
     @RequestMapping("/file")
+    @ResponseBody
     public String getFile(@RequestParam("file") MultipartFile file) {
         Workbook wk = null;
         try {
@@ -34,7 +36,7 @@ public class SheetController {
             e.printStackTrace();
         }
         Sheet sheet = wk.getSheetAt(0);
-        if (sheet != null) {
+        if (!StringUtils.isEmpty(sheet)) {
             Row row = sheet.getRow(1);
             Iterator<Cell> cellIterator = row.cellIterator();
             while (cellIterator.hasNext()) {
@@ -84,7 +86,7 @@ public class SheetController {
         return result;
     }
 
-    @RequestMapping("/index")
+    @RequestMapping("/filePage")
     public String index() {
         return "file";
     }
