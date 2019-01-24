@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test1</title>
+</head>
+<body>
+	<div id="id-div">
+		<span>姓名</span>
+		<span>联系方式</span>
+	</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+	
+	//用一个变量去引用一个匿名函数
+	//匿名函数的name和第一次引用的一样
+	var fn = function() {
+
+	}
+
+	//两个指针指向函数地址
+	var fn2 = fn;
+
+	fn.name //fn
+	fn2.name // fn
+
+	//具名函数
+	function fun4() {
+	}
+
+	//箭头函数
+	var fn6 = i => i+1; //接收i参数，返回i+1
+
+	var fn7 = (i, j) => i+j //接收两个参数，返回i+j
+
+	//函数体有多个语句写法
+	var fu8 = (i, j) => {
+		console.log("hello");
+		return i + j;
+	}
+/**
+ *****************************************************
+ */
+
+ 	var a = 3;
+
+ 	function fnn1() {
+ 		console.log(a);
+ 	}
+ 	a = 4;
+ 	fnn1();  //这里会打印4
+
+ 	/**
+ 	 * this&arguments
+ 	 */
+ 	
+ 	function f() {
+ 		console.log('this');
+ 		console.log(arguments);
+ 	}
+
+ 	//默认第一个参数是this, 第二个是arguments数组
+ 	f({name: "yang"}, 1);  //{name: "yang"} [1]
+ 	//上面是下面的缩写
+ 	f.call({name: "yang"}, 1);
+ 	//第一个参数this必须为对象如果传入的死基本类型就会被转成对象
+ 	f(10, 1);    //Number:10 [1]
+
+//示例
+ 	var Person = {
+ 		name: "yang",
+ 		sayHi: function() {
+ 			console.log('i am ' + this.name);
+ 		}
+ 	}
+
+ 	Person.sayHi(); //i am yang
+ 	Person.sayHi.call(Person)  //i am yang
+
+ 	var sayHi2 = Person.sayHi;
+ 	sayHi2();  // i am
+ 	Person.sayHi.call()  //i am 
+
+//示例
+	
+	function sum() {
+		var sum = 0;
+		for (var i = 0; i < arguments.length; i++) {
+			sum += arguments[i];
+		}
+		console.log(sum);
+		return sum;
+	}
+
+//传入的数组不确定的时候，用apply
+	var aa = [1, 2, 3, 4, 5];
+	sum.call(undefined, aa[0], aa[1], aa[2], aa[3], aa[4]) //15
+	sum.apply(undefined,aa) //15
+
+//bind
+//示例
+
+	var Veiw = {
+		element: document.querySelector('#id-div'),
+		bindEvent: function() {
+								//浏览器调用这个函数的时候call()
+								//里面的this传的不是Veiw而是被点
+								//击的函数
+			this.element.onclick = function() {
+				this.onclick();      //这个this便成了不确定的一个东西
+			}						
+		onclick: function() {
+			this.element.addClass("aa");
+		}
+		}
+	}
+
+	var Veiw2 = {
+		element: document.querySelector('#id-div'),
+		bindEvent: function() {
+			this.element.onclick = this.onclick.bind(this);
+		onclick: function() {
+			this.element.addClass("aa");
+		}
+		}
+	}
+
+
+/**
+ * 柯里化惰性求值
+ * 示例
+ * 
+ */
+
+ 	var abc = function(a, b, c) {
+ 		return [a, b, c];
+ 	}
+
+ 	var curry = function(abc) {
+ 		return function(a) {
+ 			return function(b) {
+ 				return function(c) {
+ 					return [a, b, c]
+ 				}
+
+ 			}
+ 		}
+ 	}
+ 	var curried = curry(abc);
+ 	curried(1)(2)(3);
+
+/**
+ * 高阶函数
+ * 1. 接收一个或多个函数为输入
+ * 2. 输出一个函数
+ * 3. 同时满足上述两个条件
+ *
+ * 作用可以将函数任意的组合
+ * 示例
+ */
+
+/**
+ * 回调
+ * 函数的入参树函数
+ */
+
+//理解array的常用函数再去看高阶函数和柯里化
+
+
+/**
+ * 构造函数，返回值为一个对象,不写返回this
+ * 示例
+ * 
+ */
+
+ 	var Empty = function() {
+ 		this.name = "empty"
+ 	}
+
+ 	var e = new Empty(); //构造出一个新的对象
+
+ //不用new达到的效果
+ 	var Empty2 = function() {
+ 		this.name = "empty"
+ 		return this
+ 	}
+
+ 	var e2 = Empty2.call({})
+
+/**
+ * 箭头函数
+ * 箭头函数不支持this，所以他会把函数里的this当成一个变量向上找，不会自己傻傻的变成widow，如果外层雷友this的时候才会变成window
+ */
+
+ 	var f1 = function() {
+ 		this
+ 		function f2() {
+ 			this     //不等于第一个this
+ 		}
+ 		var f3 =>() {
+ 			this   //等于第一个this
+ 		}
+ 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

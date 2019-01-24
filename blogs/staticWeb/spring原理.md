@@ -1,0 +1,23 @@
+# Spring框架
+## IOC容器：
+
+IOC容器其实是bean、content、core这三个组件维护形成的管理bean对象的关系网。对于spring的IOC容器来说，主要有BeanFactoryPostProcessor和BeanPostProcessor他们分别在BeanFactory和被IOC管理的Bean初始化的时候调用，而InitialliZingBean和DisposableBean他们分别会在bean创建和销毁的时候调用。用户可以实现这些节后中的定义方法，spring会在试单的时候调用。还有一个FactoryBean，他是特殊的Bean，这个Bean可以自定义IOC容器。这是IOC的整个过程，以下是我自己模拟springIOC的demo
+
+## AOP
+
+AOP理解起来比较费劲，网上找到的资料也很片面，关于应用于工程的代码就更少只能找到利用反射实现的小demo，几乎对开发者透明。以下是我理解AOP的原理：
+	面向对象中的有封装的概念，封装就是让代码可复用，降低耦合度，但是这也会提高了代码的重复（可复用代码频繁被调用）。比如我们执行A和B两段代码是但是不可避免的要执行oAo和oBo这样的代码，AOP就是解决这样的事情的。程序员只关注A和B这样的业务逻辑代码而像o（日志、安全、事务）的代码交给系统处理。这就是AOP的核心。于此同时就引出了相关概念
+
+通知：把o代码插入的动作
+
+切点：通知这个动作在什么时候调用
+
+链接点：执行过程中插入到哪些方法
+
+切面：通知和切点和结合
+
+上述名称虽然恶心晦涩但是还是能看出面向切面更强调时序性（何时被调用、插入代码的时机）侧重动态，而面向对象看重代码的结构性（如何封装、解耦、模块化）侧重静态。
+
+## springMVC
+
+springMVC运行流程的核心点是DispatcherServlet，客户端发送请求到服务端，先通过拦截器（在springMVC中是HandlerInterceptor在原始的Servlet中是Filter）进行请求预处理操作，处理器映射HandlerMapping器根据HTTP请求行解析URL找到@Controller和@RequestMapping。处理器适配器HandlerAdapter调用相应的controller方法，执行代码后通过视图解析器渲染页面，以上组件全都被DispatcherServlet引用，构成整个springMVC流程。
