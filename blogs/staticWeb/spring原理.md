@@ -21,3 +21,5 @@ AOP理解起来比较费劲，网上找到的资料也很片面，关于应用�
 ## springMVC
 
 springMVC运行流程的核心点是DispatcherServlet，客户端发送请求到服务端，先通过拦截器（在springMVC中是HandlerInterceptor在原始的Servlet中是Filter）进行请求预处理操作，处理器映射HandlerMapping器根据HTTP请求行解析URL找到@Controller和@RequestMapping。处理器适配器HandlerAdapter调用相应的controller方法，执行代码后通过视图解析器渲染页面，以上组件全都被DispatcherServlet引用，构成整个springMVC流程。
+
+![xsa](image/qq.PNG)
