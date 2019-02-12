@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.springbootmybatis.Mapper.CompanyMapper">
+
+    <sql id="company_field">
+
+    </sql>
+
+    <select id="findCompanyById" parameterType="int" resultType="com.yang.springbootmybatis.bean.Company">
+        SELECT * from company WHERE id = #{id}
+    </select>
+
+    <!--不使用对象导航 再到上不用加param-->
+    <select id="findCompany"  parameterType="com.yang.springbootmybatis.bean.Company" resultType="com.yang.springbootmybatis.bean.Company">
+        SELECT * from company WHERE id = #{id}
+    </select>
+
+    <!--通过map传入多个参数 不用加parm-->
+    <select id="findCompanyByParams" resultType="com.yang.springbootmybatis.bean.Company">
+        SELECT * from company WHERE id = #{id} and user_id = #{userId}
+    </select>
+
+    <!--通过多值参数传递-->
+    <select id="findCompanyByParams2" resultType="com.yang.springbootmybatis.bean.Company">
+        SELECT * from company WHERE id = #{id} and user_id = #{userId}
+    </select>
+
+    <!--入参为list<id> 返回值为List<bean>-->
+    <select id="findCompanyByIds" resultType="com.yang.springbootmybatis.bean.Company">
+        SELECT * from company WHERE id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!--一对多查询
+        注意查询出来的列不要重复
+        fetchType="lazy" 懒加载（如果没有查询光联的东西就不会执行关联的sql）
+    -->
+    <resultMap id="finduser" type="com.yang.springbootmybatis.bean.Boss" >
+        <id property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <collection property="list" ofType="com.yang.springbootmybatis.bean.Company" fetchType="lazy">
+            <id property="id" column="c_id"/>
+            <result property="createTime" column="Create_time"/>
+        </collection>
+    </resultMap>
+    <select id="findUserById" parameterType="int" resultMap="finduser">
+        SELECT
+         user.`id`,
+         user.`create_time`,
+         company.`id` as c_id,
+         company.`company_name`
+         FROM
+        USER LEFT JOIN company ON company.`user_id` = user.id
+        WHERE user.`id` = #{id}
+    </select>
+
+    <!--多对一-->
+
+
+    <!--自动生成Id-->
+    <insert id="insertCompany" parameterType="com.yang.springbootmybatis.bean.Company" useGeneratedKeys="true">
+        insert into company(user_id, company_name, create_time) VALUE (#{company.userId}, #{company.companyName}, now())
+    </insert>
+
+
+    <!--使用selectKey-->
+    <insert id="insertCompany2" parameterType="com.yang.springbootmybatis.bean.Company">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into company(user_id, company_name, create_time) VALUE (#{company.userId}, #{company.companyName}, now())
+    </insert>
+
+
+</mapper>
