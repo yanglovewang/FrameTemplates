@@ -70,11 +70,49 @@ Comparator<Apple> c =
 
 - 比较器链
 
+- 方法引用和lambda的转化图：![](img/方法引用.PNG)
+
 ```java
 inventory.sort(comparing(Apple::getWeight)
 .reversed()                             //按重量递降
 .thenComparing(Apple::getCountry));    //如果重量相同就比较国际
 ```
 
+### 流
+
+#### 流是什么
+
+- 通过申明式处理集合，而不是通过逻辑处理集合元素，有点类似于sql
+
+- 开发者对并行透明（避免了自己处理多线程）
+```java
+List<String> lowCaloricDishesName =
+menu.parallelStream()
+.filter(d -> d.getCalories() < 400)
+.sorted(comparing(Dishes::getCalories))
+.map(Dish::getName)
+.collect(toList());
+```
+
+- 以上代码从语义上分析表示想要完成什么，而不是进行逻辑判断操作什么
+
+![](img/流程图.png)
+
+#### 流和集合
+
+- 流和集合的不同：流的目的在于表达计算，比如你前面见到的
+          filter、 sorted和map。集合讲的是数据，流讲的是计算
+          简单的说集合是数据的存储，流是数据的操作
+- 使用流的条件：
+    - 源：数据源（集合、数组）等用于给流操作
+    - 数据操作：对源的map、sort等操作
+    - 流水线：![](img/流程图.png)
+    - 内部迭代：流的迭代操作是在背后进行的 ![迭代差异](img/interator.PNG)
+    - cascas撒擦 
+#### 流操作
+
+-  一个数据源（如集合）来执行一个查询；
+-  一个中间操作链，形成一条流的流水线；中间操作返回流
+- 一个终端操作，执行流水线，并能生成结果；返回任意不是流的值
 
 
