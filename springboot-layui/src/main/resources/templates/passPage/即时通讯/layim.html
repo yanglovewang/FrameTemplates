@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>LayIM测试</title>
+    <script src="/webjars/layui/2.4.5/layui.all.js"></script>
+    <link rel="stylesheet" href="/webjars/layui/2.4.5/css/layui.css"  media="all"/>
+    <link rel="stylesheet" href="/webjars/layui/2.4.5/css/layui.mobile.css"/>
+</head>
+<body>
+
+</body>
+</html>
+
+<script>
+    layui.use('layim', function(layim){
+        //先来个客服模式压压精
+        layim.config({
+            brief: true //是否简约模式（如果true则不显示主面板）
+        }).chat({
+            name: '客服姐姐'
+            ,type: 'friend'
+            ,avatar: 'http://tp1.sinaimg.cn/5619439268/180/40030060651/1'
+            ,id: -2
+        });
+    });
+</script>

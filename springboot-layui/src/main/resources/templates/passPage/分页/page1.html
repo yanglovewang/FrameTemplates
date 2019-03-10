@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layPage快速使用</title>
+</head>
+<script src="/webjars/layui/2.4.5/layui.all.js"></script>
+<link rel="stylesheet" href="/webjars/layui/2.4.5/css/layui.css"/>
+<link rel="stylesheet" href="/webjars/layui/2.4.5/css/layui.mobile.css"/>
+<body>
+
+<div id="test1"></div>
+<script>
+    layui.use(['laypage', 'jquery'], function(){
+        var laypage = layui.laypage;
+        var $ = layui.$;
+        //执行一个laypage实例
+        laypage.render({
+            limit:5,
+            elem: 'test1', //注意，这里的 test1 是 ID，不用加 # 号
+            count: 50, //数据总数，从服务端得到
+            jump: function (obj, first) {  //点击分页后被触发
+                console.log("page obj", obj);  //封装了分页组件的信息
+                var currentPage = obj.curr;
+                if (!first) {
+                    getListData(currentPage);
+                    console.log("j2");
+                }
+            }
+        });
+
+        function getListData(currentPage){
+            var o = {
+                Page: currentPage,
+                other:222
+            };
+            $.ajax({
+                type: 'POST',
+                url: "/back/page1", // ajax请求路径
+                contentType: "application/json",
+                async: true,
+                data:JSON.stringify(o),
+                success: function(data){
+                    console.log("data = ", data);
+                },
+                error: function () {
+                    console.log("error");
+                }
+            });
+        };
+
+    });
+
+</script>
+</body>
+</html>

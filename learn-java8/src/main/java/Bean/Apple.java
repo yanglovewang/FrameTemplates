@@ -7,9 +7,10 @@ public class Apple {
     double weight;
 
     public Apple(int age, double weight, String name) {
-        this.age = age;
-        this.weight = weight;
-        this.name = name;
+
+    }
+
+    public Apple(int i, double v) {
     }
 
     public String getName() {

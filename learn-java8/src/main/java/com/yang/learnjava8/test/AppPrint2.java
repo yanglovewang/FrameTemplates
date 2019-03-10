@@ -9,16 +9,7 @@ public class AppPrint2 {
 
     public static void main(String[] args) {
 
-        List<Apple> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Apple a = new Apple(i, i+2.5);
-            list.add(a);
-        }
 
-        AppPrint2.prettyPrintApple(list, (Apple apple) -> {
-            return String.valueOf(apple.getAge());
-
-        });
 
     }
 

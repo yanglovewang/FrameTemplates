@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="/webjars/layui/2.4.5/layui.all.js"></script>
+<link rel="stylesheet" href="/webjars/layui/2.4.5/css/layui.css"/>
+<link rel="stylesheet" href="/webjars/layui/2.4.5/css/layui.mobile.css"/>
+<body>
+<ul class="layui-nav layui-nav-tree" lay-filter="test">
+    <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+    <li class="layui-nav-item layui-nav-itemed">
+        <a href="javascript:;">默认展开</a>
+        <dl class="layui-nav-child">
+            <dd><a href="javascript:;">选项1</a></dd>
+            <dd><a href="javascript:;">选项2</a></dd>
+            <dd><a href="//www.thinkcss.com/">thinkcss</a></dd>
+        </dl>
+    </li>
+    <li class="layui-nav-item">
+        <a href="javascript:;">点击展开</a>
+        <dl class="layui-nav-child">
+            <dd><a href="//www.thinkcss.com/">css</a></dd>
+            <dd><a href="//www.thinkcss.com/">div css</a></dd>
+            <dd><a href="">电商平台</a></dd>
+        </dl>
+    </li>
+    <li class="layui-nav-item"><a href="">产品</a></li>
+    <li class="layui-nav-item"><a href="">大数据</a></li>
+</ul>
+</body>
+</html>
+<script src="layui/layui.js"></script>
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+        element.on('nav(demo)', function(elem){
+            layer.msg(elem.text());
+        });
+    });
+</script>

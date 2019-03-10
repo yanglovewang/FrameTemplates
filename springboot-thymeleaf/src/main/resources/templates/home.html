@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+</head>
+<body>
+<p th:text="#{home.welcome}">Welcome to our grocery store!</p>
+<p th:text="${yang}">Welcome to our grocery store!</p>
+<p th:text="'我的名字是'+(${yang} == '杨'?'yang':'zhang')">Welcome to our grocery store!</p>
+<!--链接-->
+<a th:href="@{'/details/'+${yang}('orderId'=${1})}">view</a>
+<!--数字-->
+<p>In two years, it will be <span th:text="2013 + 2">1494</span>.</p>
+<!--文本替换-->
+<!--只有变量/消息表达式（$ {...}，* {...}，＃{...}）才允许包含在|...|-->
+<span th:text="|Welcome to our application, ${yang}!|"></span>
+<!--运算符-->
+<div style="border: 1px solid red;" th:with="isEven=(40 % 2 == 0)"></div>
+<!--哑操作符-->
+<span th:text="_">no user authenticated</span>
+
+<!--设置任何属性-->
+<div th:attr="style='border: 1px solid red;'"></div>
+<!--固定的布尔值-->
+<input type="checkbox" name="active" th:checked="active" />
+
+<!--循环-->
+<!--
+if
+如果表达式的值不为null：
+如果值为布尔值，则为true。
+如果值是数字，并且不为零
+如果值是⼀个字符且不为零
+如果value是String，⽽不是“false”，“off”或“no”
+如果值不是布尔值，数字，字符或字符串。-->
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>IN STOCK</th>
+        <th>ZHANG</th>
+    </tr>
+    <tr th:each="prod, iterStat : ${prods}" th:class="${iterStat.odd}? 'odd'">
+        <td th:text="${prod.name}">Onions</td>
+        <td th:text="${prod.price}">2.41</td>
+        <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
+        <td th:if="(${prod.name} == 'zhang')" th:text="${prod.name}"></td>
+        <td th:if="(${not #lists.isEmpty(prod)})" th:text="${prod.name}"></td>
+    </tr>
+</table>
+
+<!--switch-->
+<div th:switch="${user.name}">
+    <p th:case="'admin'">User is an administrator</p>
+    <p th:case="'zhang'">User is a manager</p>
+    <p th:case="*">User is some other thing</p>
+</div>
+
+<!--模板渲染-->
+<div th:insert="~{footer :: copy}"></div>
+<div th:insert="footer :: copy"></div>
+<div th:insert=":: ddd(${1}, ${2})"></div><!--引用this文件-->
+<div th:fragment="ddd(a, b)" th:text="|${a},${b}|"></div>
+<!--使用属性渲染-->
+<div th:insert="~{footer :: #copy-section}"></div>
+<!--还可以使用模板做参数传递，不演示-->
+
+<!--内联-->
+<!--然[[...]]等价于th:text（即结果将被HTML转义），[(...)]等价于
+th:utext，不会执⾏任何HTML转义-->
+<p>Hello, [[${user.name}]]!</p>
+<!--th:inline =“none”来禁⽤内联-->
+<p th:inline="none">A double array looks like this: [[1, 2, 3], [4, 5]]!</p>
+
+</body>
+<script th:inline="javascript">
+    var username = [[${user.name}]];
+    var user = [[${user}]];
+    console.log(username);
+    console.log(user);
+</script>
+</html>
+
