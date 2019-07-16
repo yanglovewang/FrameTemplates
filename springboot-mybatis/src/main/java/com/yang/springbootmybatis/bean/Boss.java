@@ -8,6 +8,10 @@ public class Boss {
     private String createTime;
     List<Company> list;
 
+    public Boss() {
+        System.out.println("instants");
+    }
+
     public Integer getId() {
         return id;
     }
@@ -23,4 +27,6 @@ public class Boss {
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
+
+
 }

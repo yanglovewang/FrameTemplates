@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>let&const</title>
+</head>
+<body>
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+</ul>
+<script>
+    var log = console.log.bind(console)
+
+    //a 为全局变量
+    var a = 1;
+    var f = function () {
+        log(a);    // 1
+        log(window.a); // 1
+    }
+    f()
+
+    // b 为函数内的局部变量
+    var f2 = function () {
+        var b = 2;
+        log(b); //2
+        log(window.b) // undefined
+    }
+    f2()
+
+    //局部变量会被提升到代码块外面，函数里面，所以var修饰的一定要写在第一行
+    //js没有代码块区域里面的局部变量
+    var f3 = function () {
+
+        if(true) {
+            var c = 3
+        }
+        log(c)  //3
+    }
+    f3()
+
+    var f4 = function () {
+        var x = function () {
+            if(true) {
+                var d = 3
+            }
+        }
+        //log(d)  // 异常
+    }
+    f4()
+
+    //let 允许有代码块级别的局部变量，并且不能够提升变量
+    var f4 = function () {
+        if (true) {
+           // log(e)  //异常，let不能提升变量
+         let e = 3
+        }
+        //log(e)  异常
+    }
+    f4()
+
+    //const 常量
+    var f5 = function () {
+        if (true) {
+           const ss = 1
+            //ss = 2   只能一次赋值
+        }
+    }
+
+    //var 在事件点击中的坑, js加载后i瞬间就变成了6
+    var lis = document.querySelectorAll('li');
+    for (var i = 0; i < lis.length; i++) {
+        lis[i].onclick = function () {
+            log(i)
+        }
+    }
+
+    //var 在事件点击中的坑,
+    var lis2 = document.querySelectorAll('li');
+    for (let i = 0; i < lis.length; i++) {
+        lis2[i].onclick = function () {
+            log(i)
+        }
+    }
+
+</script>
+</body>
+</html>

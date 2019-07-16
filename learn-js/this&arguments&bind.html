@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+//函数的调用， this必须是对象
+
+function add(x, y) {
+    console.log('sum = ', x + y); // sum = 5
+    console.log(this); //this = window
+}
+add(2, 3);// sum = 5   this = window    //简便调用会忽略第一个参数是this
+add(Number(5), 4);// sum = 9   this = window  简便调用会忽略第一个参数是this
+add.call(2, 4);// sum = NaN    this = Number(2)
+add.call(2, 4, 5);
+
+
+var person = {
+    name: 'zhang',
+    sayHi: function () {
+        console.log("hi ", this.name)
+    }
+}
+
+person.sayHi() //hi  zhang
+person.sayHi.call(person);//hi  zhang
+//==========================================
+
+function fun() {
+    console.log(this.name)
+}
+fun() //空
+window.name = 'zhang';
+fun() // zhang
+
+//=========================================
+//内部函数的this在没有指定的时候去外部函数寻找
+window.name2 = 'zhang2'
+function fun1() {
+    console.log("fun1 name2 = ", this.name2)
+    function fun2() {
+        console.log("fun2 name2 = ", this.name2)
+    }
+    fun2() //fun2 name2 = zhang2
+}
+fun1() //fun1 name2 = zhang2
+
+
+//==========================================
+//bind
+
+var module = {
+    x: 42,
+    getX: function() {
+        return this.x;
+    }
+}
+var unboundGetX = module.getX;
+console.log(unboundGetX());
+// expected output: undefined
+
+var boundGetX = unboundGetX.bind(module);
+console.log(boundGetX());
+// expected output: 42
+
+
+//bind函数会返回一个新的函数，在新的函数里面调用了旧的函数
+function fb() {
+    console.log('bind2 = ', this)
+}
+fb.bind({name:'zhang'})(); //bind2 = {name: zhang}
+fb(); //bind2 = window
+
+
+//在异步操作中bind的写法
+setTimeout(function () {
+    console.log('setTimeThis = ', this)
+}.bind({name: 'zhang'}), 1000);
+// =============================================
+//箭头函数的第一个参数不是this，所以箭头函数的方法里面使用的this就是外面的this
+var arrow = () => {
+    console.log('arrow = ', this)
+}
+
+arrow.call({name:'this'}); //arrow = window
+</script>

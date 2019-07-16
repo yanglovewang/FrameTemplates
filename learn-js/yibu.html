@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>yibu</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<script type="text/javascript">
+	
+
+	var byFoot = function(fn) {
+		setTimeout(function(){
+			fn("没到苹果了")
+		}, (Math.random()*10 + 5)*1000)
+	}
+
+	byFoot(function(a) {
+		console.log(a);
+	})
+	console.log("zhang")
+	console.log("wang")
+/*
+	function play(fn) {
+		var zaoshang =  new Date();
+		while(new Date() - zaoshang < 1000) {
+			console.log("我要玩五秒")
+		}
+		fn("妈妈我要回家了")
+	}
+
+	play(function(say) {
+		console.log(say)
+	})
+
+	console.log("我们一家吃饭")
+
+*/
+//示例
+	/*function play2(fn) {
+		setTimeout(function() {
+			console.log("妈妈我要回家了")
+			fn("home")
+		}, 5000)
+	}
+
+	play2(function(say) {
+		if(say === "home") {
+			console.log("你只能吃冷饭")
+		}
+	})
+
+	console.log("妈妈和爸爸先吃")
+*/
+
+
+//Promise
+//记住promise的规范
+
+/*	function byfoot() {
+		return new Promise((resolve, reject) => {
+			setTimeout(function() {
+				resolve("success")
+			}, 7000)
+		}) 
+	} 
+
+	byfoot().then((success) => {
+		console.log('zhang')
+	}, (error) => {
+		console.log(error)
+	})
+
+
+	byfoot()*/
+
+//一下获取s的值浏览器一直在打转，要等程序执行结束
+//如果想promise取出的值是一个未定义的
+//如果通过await，程序先把代码保存
+/*	function todo() {
+		var zuotian = new Date()
+		console.log("zhang")
+		while(new Date() - zuotian < 10000) {
+		}
+
+		return "success"
+	}
+
+	var s = todo()*/
+
+//示例
+//自己实现promise
+
+function Promise(fn) {
+
+	function successNotify(msg) {
+
+	}
+
+	function failNotify(msg1) {
+		
+	}
+
+	fn.call(undefined, successNotify, failNotify)
+
+	var o = {
+		then: function(success, error) {
+			return undefined;
+		}
+	}
+	return o
+}
+
+var p = new Promise(function(x, y){
+	setTimeout(() => {
+		x(101)
+	}, 3000)
+})
+
+p.then((z)=>{
+	console.log(z)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

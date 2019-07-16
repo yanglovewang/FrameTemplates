@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="test">
+
+    <test name="basic">
+        <classes>
+            <class name="com.yang.springboottestng.TestSuite"/>
+            <class name="com.yang.springboottestng.BasicAnno"/>
+        </classes>
+    </test>
+
+    <test name="login">
+        <classes>
+            <class name="com.yang.springboottestng.TestSuite"/>
+            <class name="com.yang.springboottestng.Login"/>
+        </classes>
+    </test>
+
+</suite>

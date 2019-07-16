@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>proto</title>
+</head>
+<body>
+
+</body>
+<script>
+    //基本类型： Nunber String bolean undefined null symbol Object
+    class Polygon {
+        constructor() {
+            this.name = "Polygon";
+        }
+    }
+
+    class Square extends Polygon {
+        constructor() {
+            super();
+        }
+    }
+
+    new Polygon().__proto__ == new Polygon().constructor.prototype
+
+    Polygon.prototype == new Polygon().__proto__
+    /**
+     * 我们创建的每个函数都有一个 prototype（原型）属性，这个属性是一个指针，指向一个对象，
+     而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。如果按照字面意思来理解，那
+     么 prototype 就是通过调用构造函数而创建的那个对象实例的原型对象。
+     */
+
+    //js 中的静态函数只能被类调用不能被示例调用
+    class Human {
+        constructor() {
+            console.log(this)
+        }
+        static ping() {
+            console.log(this)
+        }
+    }
+
+    class Computer extends Human {
+        constructor() {}
+        static pingpong() {
+            return super.ping() + ' pong';
+        }
+    }
+
+
+</script>
+</html>

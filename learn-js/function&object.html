@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>func</title>
+</head>
+<body>
+<div id="div-this" style="border: 1px solid red; width: 30px; height: 40px"></div>
+</body>
+</html>
+<script>
+    //通过一个对象模拟函数调用，说明函数式对象
+    var obj = {
+        params: [1, 2],
+        length: 2,
+        fun: "console.log('hello word')"
+    }
+
+    funPro = {
+        call: function (o) {
+            eval(o.fun)
+        }
+    }
+
+    obj.__proto__ = funPro;
+    obj.call(obj);
+//==================================
+//use strict 必须手动指定this这个对象
+    var fun = function () {
+        'use strict'
+        console.log('use strict', this)
+    }
+    fun()
+    //this 只有在调用时候传入这个参数的时候才能确定，所以在技术里面this是一个不确定的值
+//==========================================
+    var elediv = document.querySelector("#div-this");
+    elediv.onclick = function () {
+        console.log(this)
+    }
+    elediv.onclick.call({name: 'zhang'}) //{name: 'zhang'}
+    //输出{name: 'zhang'} 如果点击 输出element元素
+    //所以不同api的this只能查文档或者用控制台测试
+
+</script>

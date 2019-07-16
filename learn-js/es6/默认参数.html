@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    var log = console.log.bind(console)
+
+    var f = function (a, b) {
+        log(a+b)
+    }
+    f(1) //b 是NAN
+//-----------------------------------------------
+    var f2 = function (a=10, b=10) {
+        log(a+b)
+    }
+    f2() //20
+// ---------------------------------------
+    //argument 只有数组的样子没有数组的功能
+    var f3 = function () {
+        log(arguments)
+    }
+    f3(1,2,3,3,5);
+    //三点
+    array1 = [1,2,3,4,5];
+    let [a,b,c,...array2] = array1;
+    var cc = 3;
+    var [d=2, f] = [cc];
+    log(array2);
+    log(d);
+    log(f)
+
+    //字符串
+    var ss = "zhang"
+    var sss = 'zhang'
+    log(ss == sss)  //true
+
+    var str = `csd
+    csdc
+       d ${sss}cs
+    dsc`
+    log(str)  //保持原样输出
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>let&const</title>
+</head>
+<body>
+<button value="button" id="id-button"></button>
+<script>
+    var log = console.log.bind(console)
+    //只有一个参数
+    var fn1 = p1 => {
+        log(p1)
+    }
+
+    //this 变成了第一个参数，this在事件的时候可能旨意不明，只能通过看文档
+    //只要原因this是一个参数，不看文档或者不看源码是不知道的
+    let object = {
+        name: 'zhang',
+        func: function (p1, p2) {
+            log(p1, p2)
+        }
+    }
+    object.func(1, 2)  //1 2
+    object.func.call(object, 1, 2)  //1 2
+
+    ob = {
+        name: 'wang',
+        func: () => {
+            log(this)
+        },
+        func2: (self) => {
+            log(self)
+        }
+    }
+    ob.func();
+    ob.func2(ob)
+
+    //this的混乱现象
+    var button = document.querySelector('#id-button')
+
+    object2 = {
+        button: button,
+        click: this.button.onclick = function (event) {
+            log(this)
+            log(event)
+        }
+    }
+    object2.click.call(1) //这个时候只能通过看文档，这个1不再参数this，因为涉及了事件只能看源码和文档
+
+    //箭头函数可以更简化匿名函数
+    var arr = [1,2,3,4,5]
+    var arr2 = arr.map(function (number) {
+        return number * number
+    })
+    var arr3 = arr.map(item => item * item)
+    log(arr2)
+    log(arr3)
+    //在其他宽框架中this又有其他区别
+
+</script>
+</body>
+</html>

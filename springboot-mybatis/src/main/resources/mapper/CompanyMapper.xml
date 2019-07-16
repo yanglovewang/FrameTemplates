@@ -36,10 +36,12 @@
     <!--一对多查询
         注意查询出来的列不要重复
         fetchType="lazy" 懒加载（如果没有查询光联的东西就不会执行关联的sql）
+        通过resultMap 把表映射成自己封装的bean对象
     -->
     <resultMap id="finduser" type="com.yang.springbootmybatis.bean.Boss" >
         <id property="id" column="id"/>
         <result property="createTime" column="create_time"/>
+        <!--ofType list里面的类型-->
         <collection property="list" ofType="com.yang.springbootmybatis.bean.Company" fetchType="lazy">
             <id property="id" column="c_id"/>
             <result property="createTime" column="Create_time"/>
