@@ -15,7 +15,7 @@ public class Cookie {
     public void cookie(HttpServletRequest request) {
         javax.servlet.http.Cookie[] cookies = request.getCookies();
         for (javax.servlet.http.Cookie cookie: cookies) {
-            //通过domain实现单点登录
+            //通过domain实现跨域访问
             cookie.setDomain("");
         }
     }
